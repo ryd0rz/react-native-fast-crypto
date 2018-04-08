@@ -4,6 +4,26 @@ import { base16, base64 } from 'rfc4648'
 const { RNFastCrypto } = NativeModules
 const Buffer = require('buffer/').Buffer
 
+export function scrypt_1 (passwd, salt, N, r, p, size, callback) {
+    passwd = base64.stringify(passwd)
+    salt = base64.stringify(salt)
+
+    console.log('RNFS:scrypt(' + N.toString() + ', ' + r.toString() + ', ' + p.toString())
+    const t = Date.now()
+    const retval:string = await RNFastCrypto.scrypt(passwd, salt, N, r, p, size)
+    const elapsed = Date.now() - t
+    console.log('RNFS:script finished in ' + elapsed + 'ms')
+
+    let uint8array = base64.parse(retval)
+    uint8array.subarray(0, size)
+      .then((result) => {
+        callback && callback(null, 1, result)
+      }, (error) => {
+        callback && callback(error, 0, null)
+      })
+}
+
+
 export async function scrypt (passwd, salt, N, r, p, size) {
   passwd = base64.stringify(passwd)
   salt = base64.stringify(salt)
@@ -66,5 +86,6 @@ export const pbkdf2 = {
 export default {
   scrypt,
   secp256k1,
-  pbkdf2
+  pbkdf2,
+    scrypt_1
 }
