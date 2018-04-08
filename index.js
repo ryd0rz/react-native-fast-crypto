@@ -5,17 +5,7 @@ const { RNFastCrypto } = NativeModules
 const Buffer = require('buffer/').Buffer
 
 export function scrypt_1 (passwd, salt, N, r, p, size, callback) {
-    passwd = base64.stringify(passwd)
-    salt = base64.stringify(salt)
-
-    console.log('RNFS:scrypt(' + N.toString() + ', ' + r.toString() + ', ' + p.toString())
-    const t = Date.now()
-    const retval:string = await RNFastCrypto.scrypt(passwd, salt, N, r, p, size)
-    const elapsed = Date.now() - t
-    console.log('RNFS:script finished in ' + elapsed + 'ms')
-
-    let uint8array = base64.parse(retval)
-    uint8array.subarray(0, size)
+    scrypt (passwd, salt, N, r, p, size)
       .then((result) => {
         callback && callback(null, 1, result)
       }, (error) => {
