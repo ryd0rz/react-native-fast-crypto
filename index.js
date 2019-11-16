@@ -62,6 +62,13 @@ async function pbkdf2DeriveAsync(key: Uint8Array, salt: Uint8Array, iter: number
   return outBuf
 }
 
+async function methodByString(method: string, jsonParams: string) {
+  const result = await RNFastCrypto.moneroCore(method, jsonParams)
+  return result
+}
+
+global.moneroCore = { methodByString }
+
 export const secp256k1 = {
   publicKeyCreate,
   privateKeyTweakAdd,
@@ -77,5 +84,6 @@ export default {
   scrypt,
   secp256k1,
   pbkdf2,
-    scrypt_1
+  scrypt_1,
+  moneroCore
 }

@@ -1,7 +1,7 @@
 # This recipe contains the setup tasks for unpacking and installing the NDK
 inherit common
 
-version="r13b"
+version="r15c"
 
 # Select the correct NDK version for the host system:
 case $(uname -sm) in
@@ -10,38 +10,44 @@ case $(uname -sm) in
     source="https://dl.google.com/android/repository/android-ndk-$version-$system.zip#0600157c4ddf50ec15b8a037cfc474143f718fd0" ;;
 "Darwin x86_64")
     system=darwin-x86_64
-    source="https://dl.google.com/android/repository/android-ndk-$version-$system.zip#71fe653a7bf5db08c3af154735b6ccbc12f0add5" ;;
+    source="https://dl.google.com/android/repository/android-ndk-$version-$system.zip#ea4b5d76475db84745aa8828000d009625fc1f98" ;;
 *)
     echo "Unknown host platform!"
     exit 1;;
 esac
 
-# Extracts a standalone toolchain from the NDK.
-# $1 arch name for installing the toolchain.
-# $2 NDK toolchain name.
-setup() {
+# Unzip the NDK archive.
+unzip_ndk() {
     echo Unpacking NDK...
     archive="$download_dir/android-ndk-$version-$system.zip"
     unzip -o -d"$work_dir" $archive
+}
+task unzip-ndk download
 
+# Extracts a standalone toolchain from the NDK.
+# $1 arch name for installing the toolchain.
+setup() {
     echo Unpacking toolchain...
     cd android-ndk-$version
-    python build/tools/make_standalone_toolchain.py --verbose --arch $1 --api 14 --stl libc++ --force --install-dir $work_dir/$1
+    python build/tools/make_standalone_toolchain.py --verbose --arch $1 --api 21 --stl libc++ --force --install-dir $work_dir/$1
 
     echo Patching headers...
     cat $recipe_dir/langinfo.h >> $work_dir/$1/sysroot/usr/local/include/langinfo.h
 }
 setup_arm() {
-    setup arm arm-linux-androideabi
+    setup arm
+}
+setup_arm64() {
+    setup arm64
 }
 setup_x86() {
-    setup x86 x86
+    setup x86
 }
-setup_mips() {
-    setup mips mipsel-linux-android
+setup_x86_64() {
+    setup x86_64
 }
-
-task setup-arm download
-task setup-x86 download
-task setup-mips download
+task setup-arm unzip-ndk
+task setup-arm64 unzip-ndk
+task setup-x86 unzip-ndk
+task setup-x86_64 unzip-ndk
 default=setup-arm
