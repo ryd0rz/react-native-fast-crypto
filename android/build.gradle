@@ -50,6 +50,7 @@ android {
 
     packagingOptions {
         pickFirst "**/libnativecrypto.so"
+        pickFirst "**/libc++_shared.so"
     }
 
     // If you want Gradle to package prebuilt native libraries
