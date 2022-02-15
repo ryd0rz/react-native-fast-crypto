@@ -30,7 +30,7 @@
     "ios/RNFastCrypto.m",
     "ios/RNFastCrypto.xcodeproj",
     "package.json",
-    "react-native-fast-crypto.podspec",
+    "RNFastCrypto.podspec",
     "README.md"
   ],
   "scripts": {
