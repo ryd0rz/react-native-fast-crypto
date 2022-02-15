@@ -8,10 +8,10 @@
     "fast",
     "native"
   ],
-  "homepage": "https://github.com/EdgeApp/react-native-fast-crypto",
+  "homepage": "https://github.com/ryd0rz/react-native-fast-crypto",
   "repository": {
     "type": "git",
-    "url": "git@github.com:EdgeApp/react-native-fast-crypto.git"
+    "url": "git@github.com:ryd0rz/react-native-fast-crypto.git"
   },
   "license": "MIT",
   "author": "Edge",

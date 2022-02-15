@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.platform = :ios, "8.0"
   s.requires_arc = true
   s.source = {
-    :git => "https://github.com/EdgeApp/react-native-fast-crypto.git",
+    :git => "https://github.com/ryd0rz/react-native-fast-crypto.git",
     :tag => "v#{s.version}"
   }
   s.source_files = "ios/**/*.{h,m}"
@@ -21,6 +21,6 @@ Pod::Spec.new do |s|
     "ios/Libraries/libnativecrypto.a",
     "ios/Libraries/libsecp256k1.a"
 
-  s.dependency "React"
+  s.dependency "React-Core"
   s.dependency "OpenSSL-Universal"
 end
