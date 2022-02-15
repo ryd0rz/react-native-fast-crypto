@@ -15,7 +15,7 @@ add_library( nativecrypto
 
 set_target_properties( nativecrypto
                        PROPERTIES IMPORTED_LOCATION
-                       ${CMAKE_SOURCE_DIR}/../../../jni/libs/${ANDROID_ABI}/libnativecrypto.so )
+                       ${CMAKE_SOURCE_DIR}/../../../jni/cmakeLibs/${ANDROID_ABI}/libnativecrypto.so )
 
 # Include libraries needed for crypto_bridge lib
 target_link_libraries(crypto_bridge nativecrypto android log)
